@@ -8,7 +8,8 @@
   ],
   "require": {
     "fzaninotto/faker": "^1.9",
-    "symfony/console": "^4.4"
+    "symfony/console": "^5.1",
+    "dompdf/dompdf": "^0.8.5"
   },
   "autoload": {
     "psr-4": {

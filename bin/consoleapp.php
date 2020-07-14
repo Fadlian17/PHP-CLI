@@ -1,15 +1,16 @@
 <?php
 
+//composer dumpautoload -o
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use App\Command\ListTodo;
-use App\Command\AddTodo;
-use App\Command\UpdateTodo;
-use App\Command\RemoveTodo;
-use App\Command\SetActiveTodo;
-use App\Command\SetUnactiveTodo;
-use App\Command\ClearTodo;
+use Console\Command\ListTodo;
+use Console\Command\AddTodo;
+use Console\Command\UpdateTodo;
+use Console\Command\RemoveTodo;
+use Console\Command\SetActiveTodo;
+use Console\Command\SetUnactiveTodo;
+use Console\Command\ClearTodo;
 
 $application = new Application();
 
