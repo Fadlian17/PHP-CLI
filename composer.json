@@ -1,0 +1,19 @@
+{
+  "name": "fadli1728/task7",
+  "authors": [
+    {
+      "name": "Fadlian17",
+      "email": "alfansyahfadlian@gmail.com"
+    }
+  ],
+  "require": {
+    "fzaninotto/faker": "^1.9",
+    "symfony/console": "^4.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Console\\": "src"
+    },
+    "classmap": ["src"]
+  }
+}
