@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+
 class ListTodo extends Command
 {
     // the name of the command (the part after "bin/console")
@@ -13,7 +14,7 @@ class ListTodo extends Command
 
     protected function configure()
     {
-        // ...
+        $this->setDescription("View All Title");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -29,7 +30,7 @@ class ListTodo extends Command
         $todo = file_get_contents($file);
         $data = json_decode($todo, true);
         $data = array_map(function ($x) {
-            return ($x['id'] . ". " . $x['title'] . " " . $x['complete']);
+            return ($x['id'] . ". " . $x['title'] . " --" . $x['complete']);
         }, $data['todos']);
 
         $output->writeln($data);

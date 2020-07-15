@@ -4,6 +4,7 @@ namespace Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -17,6 +18,7 @@ class SetActiveTodo extends Command
     protected function configure()
     {
         $this->addArgument('id', InputArgument::REQUIRED);
+        $this->setDescription("Done Your Title");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -39,13 +41,24 @@ class SetActiveTodo extends Command
         if ($find_id) {
             foreach ($find_id as $key => $value) {
                 $data['todos'][$key]['complete'] = "(DONE)";
+                // system('php bin/consoleapp.php list-todo');
+                echo ("\n");
             }
         }
         $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
 
         $todo = file_put_contents($file, $jsonfile);
-        echo " Good Job !!!,  Your Todo as Done";
-        return Command::SUCCESS;
+        echo " Good Job !!!,  Your Todo as Done\n";
+
+        $command = $this->getApplication()->find('list-todo');
+        $arguments = [
+            ''
+        ];
+        $input = new ArrayInput($arguments);
+        $returnCode = $command->run($input, $output);
+        return $returnCode;
+
+        // return Command::SUCCESS;
 
         // or return this if some error happened during the execution
         // (it's equivalent to returning int(1))

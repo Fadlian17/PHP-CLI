@@ -4,6 +4,7 @@ namespace Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -17,6 +18,7 @@ class AddTodo extends Command
     protected function configure()
     {
         $this->addArgument('title', InputArgument::REQUIRED);
+        $this->setDescription('Create New Title');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,8 +43,17 @@ class AddTodo extends Command
 
         $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
         $todo = file_put_contents($file, $jsonfile);
-        echo " Yeay !!!, Add Your Todo as Successfully";
-        return Command::SUCCESS;
+        // system('php bin/consoleapp.php list-todo');
+        echo " Yeay !!!, Add Your Todo as Successfully\n";
+        $command = $this->getApplication()->find('list-todo');
+        $arguments = [
+            ''
+        ];
+        $input = new ArrayInput($arguments);
+        $returnCode = $command->run($input, $output);
+        return $returnCode;
+
+        // return Command::SUCCESS;
 
         // or return this if some error happened during the execution
         // (it's equivalent to returning int(1))

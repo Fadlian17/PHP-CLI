@@ -4,6 +4,7 @@ namespace Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,7 +17,7 @@ class ClearTodo extends Command
 
     protected function configure()
     {
-        // $this->addArgument('id', InputArgument::REQUIRED);
+        $this->setDescription("Clear All Title");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -36,8 +37,16 @@ class ClearTodo extends Command
 
         $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
         $todo = file_put_contents($file, $jsonfile);
+        // system('php bin/consoleapp.php list-todo');
         echo " Yeay !!!, Remove Your All Todo as Successfully";
-        return Command::SUCCESS;
+        $command = $this->getApplication()->find('list-todo');
+        $arguments = [
+            ''
+        ];
+        $input = new ArrayInput($arguments);
+        $returnCode = $command->run($input, $output);
+        return $returnCode;
+        // return Command::SUCCESS;
 
         // or return this if some error happened during the execution
         // (it's equivalent to returning int(1))
